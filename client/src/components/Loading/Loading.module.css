@@ -1,0 +1,78 @@
+.body {
+  height: 100vh;
+}
+
+.loading_container {
+  position: absolute;
+  left: 510px;
+  top: 200px;
+}
+
+.loading_container h1 {
+  font-family: Montserrat, sans-serif;
+  color: #f84237;
+  font-size: 50px;
+  position: absolute;
+  z-index: 1;
+  top: 5%;
+  left: 35%;
+}
+
+.loading__container_loading_image {
+  /* margin: 0px 80rem 0px 0px; */
+  position: sticky;
+  z-index: 0;
+  /* width: 100%; */
+  border-radius: 200px;
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
+  -ms-border-radius: 200px;
+  -o-border-radius: 200px;
+}
+
+.loading__container_button {
+  font-family: Montserrat, sans-serif;
+  border-radius: 8px;
+  background-color: #19686f;
+  border: none;
+  color: black;
+  text-align: center;
+  font-size: 20px;
+  padding: 10px;
+  width: 180px;
+  transition: all 0.5s;
+  cursor: pointer;
+  top: 43%;
+  left: 42.5%;
+  z-index: 1;
+  position: absolute;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  -o-transition: all 0.5s;
+}
+
+.loading__container_button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.loading__container_button span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.loading__container_button:hover span {
+  padding-right: 25px;
+}
+
+.loading__container_button:hover span:after {
+  opacity: 1;
+  right: 0;
+}

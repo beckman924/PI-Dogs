@@ -1,0 +1,50 @@
+.divErr {
+  background-image: url("../../assets/images/pageNotFound.jpg");
+  background-position: "center";
+  background-size: "cover";
+  background-repeat: "no-repeat";
+  width: "100vw";
+  height: "100vh";
+}
+
+.button {
+  border-radius: 8px;
+  /* background-color: #ebe9e9; */
+  background-color: #b4ad94;
+  border: none;
+  color: black;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 350px;
+  transition: all 0.5s;
+  cursor: pointer;
+  top: 30%;
+  left: 70%;
+  position: absolute;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}

@@ -23,7 +23,7 @@ const getApiInfo = async () => {
       weight_min: parseInt(e.weight.metric.slice(0, 2).trim()),
       weight_max: parseInt(e.weight.metric.slice(4).trim()),
       life_span: e.life_span,
-      temperament: e.temperament,
+      temperaments: e.temperament ? e.temperament : null,
       image: e.image.url,
     };
   });
@@ -79,14 +79,22 @@ router.get("/temperaments", async (req, res) => {
   const temperamentsApi = await axios.get(
     `https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`
   );
-  const temperaments = temperamentsApi.data.map((e) => e.temperament);
-  const tempEach = temperaments.join(" ").split(", ");
-  const tempEachFilter = [...new Set(tempEach)];
+  const temperaments = temperamentsApi.data
+    .map((e) => e.temperament)
+    .toString()
+    .trim()
+    .split(/\s*,\s*/);
+
+  let temperamentsFilter = temperaments.filter((e) => e);
+
+  const tempEachFilter = [...new Set(temperamentsFilter)];
+
   tempEachFilter.forEach((e) => {
     Temperament.findOrCreate({
       where: { name: e },
     });
   });
+
   const allTemperaments = await Temperament.findAll();
   res.send(allTemperaments);
 });
@@ -98,29 +106,46 @@ router.post("/dog", async (req, res) => {
     height_max,
     weight_min,
     weight_max,
-    life_span,
-    temperament,
+    min_life_span,
+    max_life_span,
+    temperaments,
     image,
     createdInDb,
   } = req.body;
-  let breedCreated = await Breed.create({
-    name,
-    height_min,
-    height_max,
-    weight_min,
-    weight_max,
-    life_span,
-    image,
-    temperament,
-    createdInDb,
-  });
 
-  let temperamentDb = await Temperament.findAll({
-    where: { name: temperament },
-  });
+  let life_span;
 
-  breedCreated.addTemperament(temperamentDb);
-  res.send("Breed created successfully");
+  if (
+    min_life_span &&
+    max_life_span &&
+    parseInt(min_life_span) <= parseInt(max_life_span)
+  ) {
+    life_span = min_life_span + " - " + max_life_span + " years";
+  } else {
+    life_span = "Life span error, user didn´t bring life span";
+  }
+
+  try {
+    let breedCreated = await Breed.create({
+      name,
+      height_min,
+      height_max,
+      weight_min,
+      weight_max,
+      life_span,
+      image,
+      createdInDb,
+    });
+
+    let temperamentDb = await Temperament.findAll({
+      where: { name: temperaments },
+    });
+
+    breedCreated.addTemperament(temperamentDb);
+    res.send("Breed created successfully 🐶");
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 module.exports = router;

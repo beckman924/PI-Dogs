@@ -1,0 +1,48 @@
+.input__container {
+  position: relative;
+}
+
+.input {
+  font-family: Montserrat, sans-serif;
+  border-radius: 2rem;
+  width: 450px;
+  height: 35px;
+  border: 2px solid var(--gray200);
+  font-size: 20px;
+  padding-left: 15px;
+  color: black;
+  background: none;
+  box-shadow: 0 0.2rem 0.5em 0 rgba(0, 0, 0, 0.2);
+  outline: none;
+  -webkit-border-radius: 2rem;
+  -moz-border-radius: 2rem;
+  -ms-border-radius: 2rem;
+  -o-border-radius: 2rem;
+}
+
+.input:hover {
+  border-color: var(--primary);
+}
+
+.input:focus {
+  border-color: var(--primary-dark);
+}
+
+.input:focus ~ .search__label,
+.input:not(:placeholder-shown).input:not(:focus) ~ .search__label {
+  top: 1rem;
+  left: 77rem;
+  font-size: 0.8rem;
+}
+
+.search__label {
+  pointer-events: none;
+  display: block;
+  position: absolute;
+  left: 77rem;
+  top: 30px;
+  padding: 0 0.5rem;
+  background-color: #19686f;
+  color: black;
+  transition: 200ms ease-in, left 200ms ease-in, font-size 200ms ease-in;
+}

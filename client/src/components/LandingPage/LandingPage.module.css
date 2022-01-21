@@ -1,0 +1,90 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.landing__container {
+  background-image: url(../../assets/images/landingBackground.jpg);
+  background-position: center;
+  background-size: cover;
+  height: 100vh;
+}
+
+.landing__container__title {
+  color: white;
+  margin-left: 70px;
+  padding-top: 50px;
+  font-size: 72px;
+  line-height: 1.2;
+}
+
+.landing__container__button {
+  font-family: Montserrat, sans-serif;
+  border-radius: 0.5rem;
+  background-color: var(--primary);
+  border: none;
+  color: black;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 350px;
+  transition: background-color 200ms ease-in;
+  cursor: pointer;
+  top: 10%;
+  left: 38%;
+  margin-top: 490px;
+  margin-left: 550px;
+  position: absolute;
+  -webkit-border-radius: 0.5rem;
+  -moz-border-radius: 0.5rem;
+  -ms-border-radius: 0.5rem;
+  -o-border-radius: 0.5rem;
+}
+
+.landing__container__button:hover {
+  background-color: var(--primary-dark);
+}
+
+.landing__container__button span {
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.landing__container__button span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.landing__container__button:hover span {
+  padding-right: 40px;
+}
+
+.landing__container__button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+@media (min-width: 375px) and (max-width: 812px) {
+  .landing__container {
+    background-size: stretch;
+    background-position: -180px;
+    height: 100vh;
+  }
+
+  .landing__container__title {
+    margin-top: 0px;
+    padding-right: 20px;
+    padding-left: -40px;
+  }
+
+  .landing__container__button {
+    margin-top: 0px;
+    margin-left: 0px;
+    top: 80%;
+    left: 3%;
+  }
+}

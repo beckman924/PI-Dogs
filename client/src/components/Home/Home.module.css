@@ -1,0 +1,17 @@
+.homeContainer {
+  background-image: url("../../assets/images/homeBackground.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1 0 21%;
+  margin: 2%;
+}
