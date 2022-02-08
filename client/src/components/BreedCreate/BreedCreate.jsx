@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 import { postBreed, getTemperaments } from "../../Redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { GiDogHouse } from "react-icons/gi";
@@ -42,7 +44,9 @@ export default function BreedCreate() {
       input.max_life_span &&
       input.temperaments.length
     ) {
-      alert("Breed Created Successfully! 🐶");
+      Swal.fire({
+        title: "Breed Created Successfully! 🐶",
+      });
       dispatch(postBreed(input));
       setInput({
         name: "",
@@ -57,7 +61,10 @@ export default function BreedCreate() {
       });
       navigate("/dogs");
     } else {
-      alert("Fill all the fields please 🐕");
+      Swal.fire({
+        icon: 'error',
+        title: "Fill all the fields please 🐕",
+      });
     }
   };
 
@@ -91,6 +98,30 @@ export default function BreedCreate() {
     });
   }
 
+  function fileChange() {
+    let photos = document.getElementById("input_img");
+    Array.from(photos.files).map(async (photo) => {
+      const body = new FormData();
+      body.set("key", "64fe53bca6f3b1fbb64af506992ef957");
+      body.append("image", photo);
+
+      await axios({
+        method: "post",
+        url: "https://api.imgbb.com/1/upload",
+        data: body,
+      })
+        .then((response) => {
+          setInput({
+            ...input,
+            image: response.data.data.url,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
+  }
+
   return (
     <div className={styles.container_create}>
       <Link to="/dogs" style={{ color: "inherit", textDecoration: "inherit" }}>
@@ -101,6 +132,13 @@ export default function BreedCreate() {
 
       <form onSubmit={(e) => handleSubmit(e)} className={styles.form}>
         <h1 className={styles.form__title}>Create your Breed! 🐶</h1>
+        {input.image ? (
+          <img
+            className="w-36 h-36 bg-cover rounded-full"
+            src={input.image}
+            alt="upload_image"
+          />
+        ) : null}
 
         <img src={BreedCreation} alt="" />
 
@@ -230,18 +268,15 @@ export default function BreedCreate() {
 
         <div className={styles.form__group}>
           <input
-            type="text"
-            value={input.image}
+            type="file"
             name="image"
             className={styles.form__input}
             placeholder=" "
-            onChange={(e) => handleChange(e)}
+            accept="image/*"
+            id="input_img"
+            onChange={fileChange}
           />
-          {/* {errors.image && (
-            <p className={styles.error}>
-              <strong>{errors.image}</strong>
-            </p>
-          )} */}
+
           <label className={styles.form__label}>Url Image:</label>
         </div>
 
